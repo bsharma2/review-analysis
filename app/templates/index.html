@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Review Analysis</title>
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/mainpage.css') }}">
+</head>
+<body>
+<div class = "heading">Review Analysis</div>
+
+<form action="/classify" method="post">
+  <div class = "box inputbox">
+      <input type="text" placeholder="Type your review here..." id="myText" name="reviewText"></input>
+      <input type="submit" onclick="display_result()" value = "" id="submit">
+  </div>
+</form>
+
+<div id="loader"></div>
+
+
+<div id="result" class="box">
+    <div id="result_text_box">
+      <div class="result_text">
+        <span> Sentiment: <span id="sentiment_value"> </span></span>
+      </div>
+
+      <div class="result_text">
+        <span> Predicted rating: <span id="rating_number"> </span></span>
+      </div>
+    </div>
+      <div class="rating_box" >
+
+
+    <div id="container" style="height: 400px;"></div>
+
+
+
+  </div>
+    <div class="result_text">
+    <span> Word importance: </span>
+  </div>
+  <div id="entered_text"> 
+    <ul id="visualizations">
+    </ul>
+  </div>
+  
+<!--   <div id="score"> Suggested score :
+     <button class="button" style="vertical-align:middle" onclick="display_score_calculation()"><span> {{score}} </span></button>
+    
+    <div class = "calculation" > 5 * {{rating_prediction_probability[4]}}% + 4 * {{rating_prediction_probability[3]}}% + 3 * {{rating_prediction_probability[2]}}% + 2 * {{rating_prediction_probability[1]}}% + 1 * {{rating_prediction_probability[0]}}% 
+    </div>
+  </div> -->
+
+
+  
+  
+</div>
+
+<!-- <script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js"></script>
+ -->
+<script type="text/javascript">
+  /*Sample data: 
+    var weights = [0.0007048568804748356,0.001902127405628562,0.0016536752227693796,0.0006502149044536054,0.0011837471975013614,0.0019175177440047264,0.4940382242202759];
+    var words = ["[CLS]","This","product","is","really","great","[SEP]"];
+    var display = true;
+    var prediction = 'Positive';
+    var rating_prediction_probability = [10.07,10.04,10.1,31.04,38.76];
+    var score = 5;
+  */
+
+  var weights = {{ weights | tojson }};
+  var words = {{ words | tojson }};
+  var display = {{ display | tojson }};
+  var prediction = {{ prediction | tojson }};
+  var rating_prediction_probability = {{ rating_prediction_probability | tojson }};
+  var score = {{ score | tojson }};
+</script>
+<script src="{{url_for('static', filename='styles/chart.js')}}"></script>
+
+<script src="{{url_for('static', filename='styles/script.js')}}"></script>
+
+</body>
+</html>
+

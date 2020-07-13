@@ -1,0 +1,1 @@
+{"do_lower_case": false, "output_hidden_states": true, "output_attentions": true, "model_max_length": 512}
