@@ -30,3 +30,4 @@ pip install flask
 export FLASK_APP=microblog.py
 flask run
 ```
+Currently it works on - http://127.0.0.1:5000/classify
