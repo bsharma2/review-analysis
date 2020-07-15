@@ -39,6 +39,6 @@ def classification():
     return render_template('index.html', weights=weights, words=words, prediction=sentiment, rating_prediction=rating_prediction, rating_prediction_probability = rating_prediction_probability, score = score, display=True)
 
 if __name__ == "__main__":
-    # app.run(host='0.0.0.0', port=8080, debug='True')
-    app.run(host='0.0.0.0', port=5800, debug='True')
+    app.run(host='0.0.0.0', port=8080, debug='True')
+    # app.run(host='0.0.0.0', port=5000, debug='True')
 
