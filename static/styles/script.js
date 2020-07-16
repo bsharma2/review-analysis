@@ -60,10 +60,10 @@ if(display) {
     list_node.style.marginRight = "10px";
     var opacity = weights[idx] * 300
     if(prediction == 'Positive') {
-      list_node.style.backgroundColor = 'rgba(0, 128, 0, ' + opacity + ')';
+      list_node.style.backgroundColor = 'rgba(30, 144, 255, ' + opacity + ')';
     }
     else {
-      list_node.style.backgroundColor = 'rgba(255, 0, 0, ' + opacity + ')';
+      list_node.style.backgroundColor = 'rgba(30, 144, 255, ' + opacity + ')';
     }
     var textnode = document.createTextNode(words[idx]);
     list_node.appendChild(textnode)
@@ -72,16 +72,6 @@ if(display) {
 
   anychart.onDocumentReady(function() {
 
-    // set the data
-    // var data = {
-    //   header: ["Rating", "Prediction confidence"],
-    //   rows: [
-    //     ["5", rating_prediction_probability[4]],
-    //     ["4", rating_prediction_probability[3]],
-    //     ["3", rating_prediction_probability[2]],
-    //     ["2", rating_prediction_probability[1]],
-    //     ["1", rating_prediction_probability[0]]
-    //   ]};
       var data = [
         {x: "5", value: rating_prediction_probability[4], normal: {fill: "#013220"}},
         {x: "4", value: rating_prediction_probability[3], normal: {fill: "#90EE90"}},
@@ -89,26 +79,12 @@ if(display) {
         {x: "2", value: rating_prediction_probability[1], normal: {fill: "#ffcccb"}},
         {x: "1", value: rating_prediction_probability[0], normal: {fill: "#8b0000"}},
       ];
-      // rows: [
-      //   ["5", rating_prediction_probability[4]],
-      //   ["4", rating_prediction_probability[3]],
-      //   ["3", rating_prediction_probability[2]],
-      //   ["2", rating_prediction_probability[1]],
-      //   ["1", rating_prediction_probability[0]]
-      // ]};
+
     console.log(data);
 
 
     // create the chart
     var chart = anychart.pie3d(data);
-
-    // chart.normal().fill("black", 0.3);
-    // chart.hovered().fill("#00cc99", 0.1);
-    // chart.pointWidth(20);
-    // chart.minPointLength(140);
-
-    // add data
-    // chart.data(data);
 
     // set the chart title
     chart.title("Detailed rating prediction");
