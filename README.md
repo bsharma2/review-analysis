@@ -4,6 +4,7 @@ Summer 2020 Project with Dr. Meng Jiang
 
 ### Prepration
 ```
+cd review-analysis
 git clone https://github.com/jessevig/bertviz bertviz_repo
 wget https://raw.githubusercontent.com/huggingface/transformers/v1.0.0/examples/utils_glue.py
 
@@ -12,6 +13,10 @@ pip install regex
 pip install pytorch-transformers
 pip install tensorboardX
 pip install -qq transformers
+pip install ipython
+pip install flask
+pip install flask_cors
+pip install sklearn
 ```
 
 Model weights are in the drive link:

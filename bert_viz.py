@@ -5,29 +5,29 @@ from utils_glue import InputExample,_truncate_seq_pair,InputFeatures
 from pytorch_transformers import BertTokenizer
 from collections import defaultdict
 
-output_dir = "./my_BERT"
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+# output_dir = "./my_BERT"
+# device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-tokenizer = BertTokenizer.from_pretrained(output_dir)  # Add specific options if needed
-PRE_TRAINED_MODEL_NAME = 'bert-base-cased'
-model_loaded = BertModel.from_pretrained(PRE_TRAINED_MODEL_NAME)
-checkpoint = torch.load(output_dir + "/sentiment_analysis_model.pt")
+# tokenizer = BertTokenizer.from_pretrained(output_dir)  # Add specific options if needed
+# PRE_TRAINED_MODEL_NAME = 'bert-base-cased'
+# model_loaded = BertModel.from_pretrained(PRE_TRAINED_MODEL_NAME)
+# checkpoint = torch.load(output_dir + "/sentiment_analysis_model.pt")
 
-checkpoint_model_state_dict = checkpoint['model_state_dict']
-for key in list(checkpoint_model_state_dict.keys()):
-    if key.startswith('bert.'):
-        new_key = key.replace("bert.", "")
-        checkpoint_model_state_dict.update({new_key: checkpoint_model_state_dict[key]})
-        checkpoint_model_state_dict.pop(key)
-    if key.startswith('cls_layer.'):
-        checkpoint_model_state_dict.pop(key)
-    if key.startswith('out.'):
-        checkpoint_model_state_dict.pop(key)
+# checkpoint_model_state_dict = checkpoint['model_state_dict']
+# for key in list(checkpoint_model_state_dict.keys()):
+#     if key.startswith('bert.'):
+#         new_key = key.replace("bert.", "")
+#         checkpoint_model_state_dict.update({new_key: checkpoint_model_state_dict[key]})
+#         checkpoint_model_state_dict.pop(key)
+#     if key.startswith('cls_layer.'):
+#         checkpoint_model_state_dict.pop(key)
+#     if key.startswith('out.'):
+#         checkpoint_model_state_dict.pop(key)
 
-model_loaded.load_state_dict(checkpoint['model_state_dict'])
+# model_loaded.load_state_dict(checkpoint['model_state_dict'])
 
-model = model_loaded.to(device)
-model.eval()
+# model = model_loaded.to(device)
+# model.eval()
 
   
 def convert_to_features(examples,tokenizer,cls_token_at_end=False,max_seq_length = 128, pad_on_left=False,
@@ -165,8 +165,8 @@ def disp_attn_tokens(tokens_a,viz_attn_dict,layer,head,attn_source_word_index=-1
   for word,weight in zip(tokens_a,viz_attn_dict[attn_direction]['attn'][layer][head][attn_source_word_index]):
       weights.append(weight)
       words.append(str(word))
-      if weight is not None:
-          print("{0}:{1}".format(word,weight))
+      # if weight is not None:
+      #     print("{0}:{1}".format(word,weight))
 
   return weights,words
 
@@ -177,6 +177,32 @@ layer = 10
 head = 4
 
 def result(review_text):
+
+  output_dir = "./my_BERT"
+  device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+  tokenizer = BertTokenizer.from_pretrained(output_dir)  # Add specific options if needed
+  PRE_TRAINED_MODEL_NAME = 'bert-base-cased'
+  model_loaded = BertModel.from_pretrained(PRE_TRAINED_MODEL_NAME)
+
+  checkpoint = torch.load(output_dir + "/sentiment_analysis_model.pt")
+
+  checkpoint_model_state_dict = checkpoint['model_state_dict']
+  for key in list(checkpoint_model_state_dict.keys()):
+      if key.startswith('bert.'):
+          new_key = key.replace("bert.", "")
+          checkpoint_model_state_dict.update({new_key: checkpoint_model_state_dict[key]})
+          checkpoint_model_state_dict.pop(key)
+      if key.startswith('cls_layer.'):
+          checkpoint_model_state_dict.pop(key)
+      if key.startswith('out.'):
+          checkpoint_model_state_dict.pop(key)
+
+  model_loaded.load_state_dict(checkpoint['model_state_dict'])
+
+  model = model_loaded.to(device)
+  model.eval()
+
   viz_examples = [InputExample(guid=0, text_a=review_text, text_b=aspect, label=None)]
   viz_inputs,tokens_a,tokens_b = convert_to_features(viz_examples,tokenizer)
   viz_ouputs = model(**viz_inputs)
