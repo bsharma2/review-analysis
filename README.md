@@ -29,8 +29,8 @@ Add them to the my_BERT folder.
 
 The first screen, where the user can enter the review text -
 
-<p align="center"> <img src="first-screen.jpg" width="500" height="400"/> </p>
+<p align="center"> <img src="first-screen.png" width="500" height="400"/> </p>
 
 The second screen is the model output which displays the predicted review rating, sentiment analysis and its visualization - 
 
-<p align="center"> <img src="second-screen.jpg" width="500" height="400"/> </p>
+<p align="center"> <img src="second-screen.png" width="500" height="400"/> </p>
